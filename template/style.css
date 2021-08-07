@@ -48,7 +48,18 @@ a.brand{
     justify-content: space-between;
     align-items: center;
 }
+/* common */
 
+h1{
+    font-size: 1.8rem;
+    padding: 1rem 0;
+}
+
+h2{
+    font-size: 1.6rem;
+    padding: 1rem 0;
+}
+ 
 a{
     text-decoration: none;
 }
@@ -66,11 +77,44 @@ header a{
     justify-content: center;
 }
 
+/* Image */
+img{
+    border-radius: 0.5rem;
 
+}
 
+img.medium{
+    max-width: 29rem;
+    width:100%;
+}
 
+.card{
+    border:0.1rem black solid;
+    background-color: lightslategray;
+    border-radius: 0.5rem;
+    margin: 1rem;
+}
 
+.card-body{
+    padding: 1rem;
+}
 
+.card-body >*{
+    margin-bottom: 0.5rem;
+    color: black;
+}
+
+.price{
+    font-size: 2rem;
+    color: white;
+}
+
+/* rating */
+
+.rating span{
+    color: gold;
+    margin: 0.1rem;
+}
 
 
 
