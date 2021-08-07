@@ -8,6 +8,7 @@ body{
     height: 100vh;
     font-size: 1.6rem;
     font-family: Helvetica, Arial,  sans-serif;
+    
 }
 
 /* layout */
@@ -89,7 +90,7 @@ img.medium{
 }
 
 .card{
-    border:0.1rem black solid;
+    border:0.2rem black solid;
     background-color: lightslategray;
     border-radius: 0.5rem;
     margin: 1rem;
