@@ -6,6 +6,7 @@ products:[
         category:'Electronic',
         image:'/images/p1.jpg',
         price:'80,000',
+        countInStock:'10',
         brand:'Samsung',
         rating:'4.5',
         numReviews:'10',
@@ -18,6 +19,8 @@ products:[
         category:'Electronic',
         image:'/images/p2.jpg',
         price:'280,000',
+        countInStock:'10',
+
         brand:'Samsung',
         rating:'4.5',
         numReviews:'10',
@@ -30,6 +33,8 @@ products:[
         category:'Electronic',
         image:'/images/p3.jpeg',
         price:'8,000',
+        countInStock:'10',
+
         brand:'Samsung',
         rating:'4.5',
         numReviews:'10',
@@ -42,6 +47,8 @@ products:[
         category:'Electronic',
         image:'/images/p4.jpg',
         price:'49,000',
+        countInStock:'10',
+
         brand:'Samsung',
         rating:'4.5',
         numReviews:'10',
@@ -54,6 +61,8 @@ products:[
         category:'Electronic',
         image:'/images/p5.jpg',
         price:'385,000',
+        countInStock:'10',
+
         brand:'Samsung',
         rating:'4.5',
         numReviews:'10',
@@ -66,6 +75,8 @@ products:[
         category:'Electronic',
         image:'/images/p6.jpg',
         price:'7,500',
+        countInStock:'10',
+
         brand:'Samsung',
         rating:'4.5',
         numReviews:'10',
@@ -78,6 +89,8 @@ products:[
         category:'Electronic',
         image:'/images/p7.jpg',
         price:'315,000',
+        countInStock:'10',
+
         brand:'Samsung',
         rating:'4.5',
         numReviews:'10',
@@ -90,6 +103,8 @@ products:[
         category:'Electronic',
         image:'/images/p8.jpg',
         price:'80,000',
+        countInStock:'10',
+
         brand:'Samsung',
         rating:'4.5',
         numReviews:'10',
@@ -102,6 +117,8 @@ products:[
         category:'Electronic',
         image:'/images/p9.jpg',
         price:'8,000',
+        countInStock:'10',
+
         brand:'Samsung',
         rating:'4.5',
         numReviews:'10',
@@ -114,6 +131,8 @@ products:[
         category:'Electronic',
         image:'/images/p10.jpg',
         price:'13,000',
+        countInStock:'0',
+
         brand:'Samsung',
         rating:'4.5',
         numReviews:'10',
