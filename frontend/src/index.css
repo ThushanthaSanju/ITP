@@ -1,201 +1,184 @@
-
-
-html{
-  font-size: 62.5%; 
+html {
+  font-size: 62.5%;
   box-sizing: border-box;
-  
 }
 
-body{
+body {
   margin: 0;
   height: 100vh;
   font-size: 1.6rem;
-  font-family: Helvetica, Arial,  sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  
 }
 
-#root{
+#root {
   height: 100%;
 }
 
 /* layout */
-.grid-container{
+.grid-container {
   display: grid;
-  grid-template-areas: 
-  'header'
-  'main'
-  'footer';
+  grid-template-areas:
+    "header"
+    "main"
+    "footer";
   grid-template-columns: 1fr;
   grid-template-rows: 5rem 1fr 5rem;
   height: 100%;
 }
 
-header{
+header {
   grid-area: header;
   background-color: DeepSkyBlue;
 }
-main{
+main {
   grid-area: main;
   padding: 1rem;
 }
 
-footer{
+footer {
   grid-area: footer;
   background-color: DeepSkyBlue;
 }
 
-a.brand{
+a.brand {
   color: whitesmoke;
   font-size: 3rem;
   font-weight: bold;
 }
 
-.row{
+.row {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
 }
 
-.row.top{
+.row.top {
   align-items: flex-start;
 }
 
-.col-1{
+.col-1 {
   flex: 1 1 25rem;
 }
 
-.col-2{
+.col-2 {
   flex: 2 1 50rem;
 }
 /* common */
 
-h1{
+h1 {
   font-size: 1.8rem;
   padding: 1rem 0;
 }
 
-h2{
+h2 {
   font-size: 1.6rem;
   padding: 1rem 0;
 }
 
-a{
+a {
   text-decoration: none;
 }
 
-a:hover{
+a:hover {
   color: white;
 }
 
-ul{
+ul {
   padding: 0;
   margin: 0;
   list-style-type: none;
-
 }
 
-li{
+li {
   margin-top: 1rem;
-
 }
 
-button{
+button {
   padding: 1rem;
   border-radius: 0.5rem;
   border: 0.1rem black solid;
   font-size: 1.6rem;
-  font-family: Helvetica, Arial,  sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: linen;
   cursor: pointer;
 }
 
-button:hover{
-  border:0.2rem black solid;
+button:hover {
+  border: 0.2rem black solid;
 }
 
-button.primary{
+button.primary {
   background-color: red;
 }
 
-button.block{
+button.block {
   width: 100%;
 }
 
-header a{
+header a {
   color: black;
   padding: 1rem;
 }
 
-.row.center{
+.row.center {
   justify-content: center;
 }
 
 /* Image */
-img{
+img {
   border-radius: 0.5rem;
-
 }
 
-img.medium{
+img.medium {
   max-width: 29rem;
-  width:100%;
+  width: 100%;
 }
 
-img.large{
-  width:100%;
+img.large {
+  width: 100%;
 }
 
-.card{
-  border:0.2rem black solid;
+.card {
+  border: 0.2rem black solid;
   background-color: lightslategray;
   border-radius: 0.5rem;
   margin: 1rem;
 }
 
-.card-body{
+.card-body {
   padding: 1rem;
 }
 
-.card-body >*{
+.card-body > * {
   margin-bottom: 0.5rem;
   color: black;
 }
 
-.price{
+.price {
   font-size: 2rem;
   color: white;
 }
 
 /* rating */
 
-.rating span{
+.rating span {
   color: gold;
   margin: 0.1rem;
 }
 
-.rating span:last-child{
+.rating span:last-child {
   color: black;
 }
 
-.success{
+.success {
   color: chartreuse;
 }
 
-.error{
+.error {
   color: rgb(255, 0, 0);
 }
-
-
-
-
-
-
-
-
-
-
