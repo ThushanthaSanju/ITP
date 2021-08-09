@@ -182,3 +182,19 @@ img.large {
 .error {
   color: rgb(255, 0, 0);
 }
+
+.alert {
+  padding: 1rem;
+  border: 0.1rem solid transparent;
+  border-radius: 0.5rem;
+}
+
+.alert-info {
+  color: blue;
+  color: antiquewhite;
+}
+
+.alert-danger {
+  color: red;
+  color: red;
+}
