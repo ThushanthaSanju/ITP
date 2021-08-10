@@ -6,7 +6,7 @@ const data = {
       category: "Electronic",
       image: "/images/p1.jpg",
       price: "80,000",
-      countInStock: "10",
+      countInStock: 10,
       brand: "Samsung",
       rating: "4.5",
       numReviews: "10",
