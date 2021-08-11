@@ -17,7 +17,7 @@ const data = {
   ],
   products: [
     {
-      _id: "1",
+      
       name: "Samsung Refrigerator",
       category: "Electronic",
       image: "/images/p1.jpg",
@@ -29,7 +29,7 @@ const data = {
       description: "high quality product",
     },
     {
-      _id: "2",
+      
       name: "Samsung Smart TV",
       category: "Electronic",
       image: "/images/p2.jpg",
@@ -41,7 +41,7 @@ const data = {
       description: "high quality product",
     },
     {
-      _id: "3",
+      
       name: "Panasonic Iron",
       category: "Electronic",
       image: "/images/p3.jpeg",
@@ -53,7 +53,7 @@ const data = {
       description: "high quality product",
     },
     {
-      _id: "4",
+      
       name: "Sony Home Theatre System",
       category: "Electronic",
       image: "/images/p4.jpg",
@@ -65,7 +65,7 @@ const data = {
       description: "high quality product",
     },
     {
-      _id: "5",
+      
       name: "MacBook Pro M1 Chip",
       category: "Electronic",
       image: "/images/p5.jpg",
@@ -77,7 +77,7 @@ const data = {
       description: "high quality product",
     },
     {
-      _id: "6",
+      
       name: "Panasonic Radio",
       category: "Electronic",
       image: "/images/p6.jpg",
@@ -89,7 +89,7 @@ const data = {
       description: "high quality product",
     },
     {
-      _id: "7",
+      
       name: "IPhone 12 pro max",
       category: "Electronic",
       image: "/images/p7.jpg",
@@ -101,7 +101,7 @@ const data = {
       description: "high quality product",
     },
     {
-      _id: "8",
+      
       name: "Samsung A72",
       category: "Electronic",
       image: "/images/p8.jpg",
@@ -113,7 +113,7 @@ const data = {
       description: "high quality product",
     },
     {
-      _id: "9",
+      
       name: "KDK Table fan",
       category: "Electronic",
       image: "/images/p9.jpg",
@@ -125,7 +125,7 @@ const data = {
       description: "high quality product",
     },
     {
-      _id: "10",
+      
       name: "KDK Ceiling Fan",
       category: "Electronic",
       image: "/images/p10.jpg",
