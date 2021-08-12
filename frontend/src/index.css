@@ -27,7 +27,6 @@ body {
 }
 .form label {
   margin: 1rem 0;
-  display: block;
 }
 
 /* layout */
@@ -58,14 +57,13 @@ footer {
 
 /*Header*/
 
-
 a.brand {
   color: whitesmoke;
   font-size: 3rem;
   font-weight: bold;
 }
 
-.badge{
+.badge {
   background-color: #f02020;
   color: #ffffff;
   border-radius: 50%;
@@ -91,7 +89,6 @@ a.brand {
 
 .col-2 {
   flex: 2 1 50rem;
-
 }
 
 .min-30 {
@@ -138,9 +135,8 @@ button {
   font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
- 
 }
-button{
+button {
   background-color: linen;
   cursor: pointer;
 }
@@ -219,7 +215,7 @@ img.large {
   color: black;
 }
 /*Alert*/
-.loading{
+.loading {
   display: block !important;
 }
 .success {
