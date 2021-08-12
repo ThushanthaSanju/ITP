@@ -218,7 +218,10 @@ img.large {
 .rating span:last-child {
   color: black;
 }
-
+/*Alert*/
+.loading{
+  display: block !important;
+}
 .success {
   color: chartreuse;
 }
