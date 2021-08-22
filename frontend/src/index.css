@@ -242,6 +242,11 @@ img.large {
   color: red;
 }
 
+.alert-success {
+  color: #20a020;
+  background-color: #eeffe0;
+}
+
 /* Dropdown */
 .dropdown {
   display: inline-block;
