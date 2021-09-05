@@ -4,19 +4,20 @@ import { BrowserRouter, Link, Route } from "react-router-dom";
 import { signout } from "./actions/userActions";
 import CartScreen from "./screens/CartScreen";
 import HomeScreen from "./screens/HomeScreen";
-import PrivateRoute from './components/PrivateRoute';
+import PrivateRoute from "./components/PrivateRoute";
 import ProductScreen from "./screens/ProductScreen";
-import ProfileScreen from './screens/ProfileScreen';
+import ProfileScreen from "./screens/ProfileScreen";
 import RegisterScreen from "./screens/RegisterScreen";
-import OrderHistoryScreen from './screens/OrderHistoryScreen';
+import OrderHistoryScreen from "./screens/OrderHistoryScreen";
 import SigninScreen from "./screens/SigninScreen";
 import ShippingAddressScreen from "./screens/ShippingAddressScreen";
 import PaymentMethodScreen from "./screens/PaymentMethodScreen";
-import PlaceOrderScreen from './screens/PlaceOrderScreen';
+import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen ";
-import ProductListScreen from './screens/ProductListScreen';
-import AdminRoute from './components/AdminRoute';
-import ProductEditScreen from './screens/ProductEditScreen';
+import ProductListScreen from "./screens/ProductListScreen";
+import AdminRoute from "./components/AdminRoute";
+import ProductEditScreen from "./screens/ProductEditScreen";
+import OrderListScreen from "./screens/OrderListScreen";
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -51,10 +52,10 @@ function App() {
                 </Link>
 
                 <ul className="dropdown-content">
-                <li>
+                  <li>
                     <Link to="/profile">User Profile</Link>
                   </li>
-                <li>
+                  <li>
                     <Link to="/orderhistory">Order History</Link>
                   </li>
                   <li>
@@ -67,7 +68,7 @@ function App() {
             ) : (
               <Link to="/signin">Sign In</Link>
             )}
-             {userInfo && userInfo.isAdmin && (
+            {userInfo && userInfo.isAdmin && (
               <div className="dropdown">
                 <Link to="#admin">
                   Admin <i className="fa fa-caret-down"></i>
@@ -108,11 +109,15 @@ function App() {
             path="/profile"
             component={ProfileScreen}
           ></PrivateRoute>
-           <AdminRoute
+          <AdminRoute
             path="/productlist"
             component={ProductListScreen}
           ></AdminRoute>
-          <Route path="/order/:id" component= {OrderScreen}></Route>
+          <AdminRoute
+            path="/orderlist"
+            component={OrderListScreen}
+          ></AdminRoute>
+          <Route path="/order/:id" component={OrderScreen}></Route>
           <Route path="/" component={HomeScreen} exact></Route>
         </main>
         <footer className="row center">All right reserved</footer>
