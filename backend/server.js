@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 
 mongoose.connect(
   process.env.MONGODB_URL ||
-    "mongodb+srv://it20281564:it20281564@itp.hii6k.mongodb.net/KINGSHIP?retryWrites=true&w=majority",
+    "mongodb+srv://it20281564:it20281564@kingship.qd1bs.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
   {
     useNewUrlParser: true,
     useUnifiedTopology: true,

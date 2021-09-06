@@ -147,8 +147,6 @@ button:hover {
   border: 0.2rem black solid;
 }
 
-
-
 button.primary {
   background-color: red;
 }
@@ -272,8 +270,6 @@ img.large {
 }
 .dropdown:hover .dropdown-content {
   display: block;
-  
-  
 }
 
 /* Checkout Steps */
@@ -312,3 +308,14 @@ img.large {
 .carousel .slide img {
   max-width: 30rem;
 }
+
+.row.start {
+  justify-content: flex-start;
+}
+.col-3 {
+  flex: 32 1 75rem;
+}
+.p-1 {
+  padding: 1rem;
+}
+
