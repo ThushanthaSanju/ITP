@@ -112,7 +112,8 @@ a {
 }
 
 a:hover {
-  color: rgb(60, 138, 211);
+  color: rgb(0, 0, 0);
+  font-size: 115%;
 }
 
 ul {
@@ -144,7 +145,7 @@ input:hover,
 select:hover,
 textarea:hover,
 button:hover {
-  border: 0.2rem black solid;
+  border: 0.001rem black solid;
 }
 
 button.primary {
@@ -189,7 +190,7 @@ img.large {
 
 .card {
   border: 0.2rem black solid;
-  background-color: lightslategray;
+  background-color: rgb(131, 212, 240);
   border-radius: 0.5rem;
   margin: 1rem;
 }
@@ -337,7 +338,7 @@ aside {
   position: fixed;
   width: 30rem;
   height: 100%;
-  background-color: #efefef;
+  background-color: rgb(108, 218, 255);
   z-index: 1000;
   transform: translateX(-30rem);
   transition: all 0.5s;
