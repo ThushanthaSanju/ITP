@@ -1,5 +1,5 @@
 # Kingship ECommerce Website
-![amazona](/template/images/kingship.jpg)
+
 ## PLEASE DO NOT SEND PULL REQUEST
 ## ALL PRs WILL BE REJECTED UNTIL DECEMBER 2020
 # React & Node Tutorial - Full ECommerce in 9 Hours [2021]
