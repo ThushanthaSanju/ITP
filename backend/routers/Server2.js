@@ -400,32 +400,7 @@ export default function ProductScreen(props) {
     success: successReviewCreate,
   } = productReviewCreate;
 
-  const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState('');
-
-  useEffect(() => {
-    if (successReviewCreate) {
-      window.alert('Review Submitted Successfully');
-      setRating('');
-      setComment('');
-      dispatch({ type: PRODUCT_REVIEW_CREATE_RESET });
-    }
-    dispatch(detailsProduct(productId));
-  }, [dispatch, productId, successReviewCreate]);
-  const addToCartHandler = () => {
-    props.history.push(`/cart/${productId}?qty=${qty}`);
-  };
-  const submitHandler = (e) => {
-    e.preventDefault();
-    if (comment && rating) {
-      dispatch(
-        createReview(productId, { rating, comment, name: userInfo.name })
-      );
-    } else {
-      alert('Please enter comment and rating');
-    }
-  };
-
+  
   return (
     <div>
       {loading ? (
@@ -461,6 +436,32 @@ export default function ProductScreen(props) {
                 </li>
               </ul>
             </div>
+            const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
+
+  useEffect(() => {
+    if (successReviewCreate) {
+      window.alert('Review Submitted Successfully');
+      setRating('');
+      setComment('');
+      dispatch({ type: PRODUCT_REVIEW_CREATE_RESET });
+    }
+    dispatch(detailsProduct(productId));
+  }, [dispatch, productId, successReviewCreate]);
+  const addToCartHandler = () => {
+    props.history.push(`/cart/${productId}?qty=${qty}`);
+  };
+  const submitHandler = (e) => {
+    e.preventDefault();
+    if (comment && rating) {
+      dispatch(
+        createReview(productId, { rating, comment, name: userInfo.name })
+      );
+    } else {
+      alert('Please enter comment and rating');
+    }
+  };
+
             <div className="col-1">
               <div className="card card-body">
                 <ul>
@@ -530,7 +531,63 @@ export default function ProductScreen(props) {
             </div>
           </div>
           <div>
-            <h2 id="reviews">Reviews</h2>
+            
+                    <div>
+                      <label />
+                      <button className="primary" type="submit">
+                        Submit
+                      </button>
+                    </div>
+                    <div>
+                      {loadingReviewCreate && <LoadingBox></LoadingBox>}
+                      {errorReviewCreate && (
+                        <MessageBox variant="danger">
+                          {errorReviewCreate}
+                        </MessageBox>
+                      )}
+                    </div>
+                  </form>
+                ) : (
+                  <MessageBox>
+                    Please <Link to="/signin">Sign In</Link> to write a review
+                  </MessageBox>
+                )}
+              </li>
+            </ul>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+return (
+  <div>
+    <form className="form" onSubmit={submitHandler}>
+      <div>
+        <h1>Edit User {name}</h1>
+        {loadingUpdate && <LoadingBox></LoadingBox>}
+        {errorUpdate && (
+          <MessageBox variant="danger">{errorUpdate}</MessageBox>
+        )}
+      </div>
+      {loading ? (
+        <LoadingBox />
+      ) : error ? (
+        <MessageBox variant="danger">{error}</MessageBox>
+      ) : (
+        <>
+          <div>
+            <label htmlFor="name">Name</label>
+            <input
+              id="name"
+              type="text"
+              placeholder="Enter name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            ></input>
+          </div>
+          <h2 id="reviews">Reviews</h2>
             {product.reviews.length === 0 && (
               <MessageBox>There is no review</MessageBox>
             )}
@@ -572,52 +629,51 @@ export default function ProductScreen(props) {
                         onChange={(e) => setComment(e.target.value)}
                       ></textarea>
                     </div>
-                    <div>
-                      <label />
-                      <button className="primary" type="submit">
-                        Submit
-                      </button>
-                    </div>
-                    <div>
-                      {loadingReviewCreate && <LoadingBox></LoadingBox>}
-                      {errorReviewCreate && (
-                        <MessageBox variant="danger">
-                          {errorReviewCreate}
-                        </MessageBox>
-                      )}
-                    </div>
-                  </form>
-                ) : (
-                  <MessageBox>
-                    Please <Link to="/signin">Sign In</Link> to write a review
-                  </MessageBox>
-                )}
-              </li>
-            </ul>
+const submitHandler = (e) => {
+  e.preventDefault();
+  // dispatch update user
+  dispatch(updateUser({ _id: userId, name, email, isSeller, isAdmin }));
+};
+          <div>
+            <label htmlFor="email">Email</label>
+            <input
+              id="email"
+              type="email"
+              placeholder="Enter email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            ></input>
           </div>
-        </div>
+          <div>
+            <label htmlFor="isSeller">Is Seller</label>
+            <input
+              id="isSeller"
+              type="checkbox"
+              checked={isSeller}
+              onChange={(e) => setIsSeller(e.target.checked)}
+            ></input>
+          </div>
+          <div>
+            <label htmlFor="isAdmin">Is Admin</label>
+            <input
+              id="isAdmin"
+              type="checkbox"
+              checked={isAdmin}
+              onChange={(e) => setIsAdmin(e.target.checked)}
+            ></input>
+          </div>
+          <div>
+            <button type="submit" className="primary">
+              Update
+            </button>
+          </div>
+        </>
       )}
-    </div>
-  );
+    </form>
+  </div>
+);
 }
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { savePaymentMethod } from "../actions/cartActions";
-import CheckoutSteps from "../components/CheckoutSteps";
 
-export default function PaymentMethodScreen(props) {
-  const cart = useSelector((state) => state.cart);
-  const { shippingAddress } = cart;
-  if (!shippingAddress.address) {
-    props.history.push("/shipping");
-  }
-  const [paymentMethod, setPaymentMethod] = useState("PayPal");
-  const dispatch = useDispatch();
-  const submitHandler = (e) => {
-    e.preventDefault();
-    dispatch(savePaymentMethod(paymentMethod));
-    props.history.push("/placeorder");
-  };
   return (
     <div>
       <CheckoutSteps step1 step2 step3></CheckoutSteps>
@@ -665,6 +721,48 @@ export default function PaymentMethodScreen(props) {
             <label htmlFor="stripe">Cash on delivery</label>
           </div>
         </div>
+        <h2 id="reviews">Reviews</h2>
+            {product.reviews.length === 0 && (
+              <MessageBox>There is no review</MessageBox>
+            )}
+            <ul>
+              {product.reviews.map((review) => (
+                <li key={review._id}>
+                  <strong>{review.name}</strong>
+                  <Rating rating={review.rating} caption=" "></Rating>
+                  <p>{review.createdAt.substring(0, 10)}</p>
+                  <p>{review.comment}</p>
+                </li>
+              ))}
+              <li>
+                {userInfo ? (
+                  <form className="form" onSubmit={submitHandler}>
+                    <div>
+                      <h2>Write a customer review</h2>
+                    </div>
+                    <div>
+                      <label htmlFor="rating">Rating</label>
+                      <select
+                        id="rating"
+                        value={rating}
+                        onChange={(e) => setRating(e.target.value)}
+                      >
+                        <option value="">Select...</option>
+                        <option value="1">1- Poor</option>
+                        <option value="2">2- Fair</option>
+                        <option value="3">3- Good</option>
+                        <option value="4">4- Very good</option>
+                        <option value="5">5- Excelent</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label htmlFor="comment">Comment</label>
+                      <textarea
+                        id="comment"
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                      ></textarea>
+                    </div>
         <div>
           <label />
           <button className="primary" type="submit">
@@ -676,32 +774,15 @@ export default function PaymentMethodScreen(props) {
   );
 }
 import React from 'react';
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { detailsUser, updateUser } from '../actions/userActions';
-import LoadingBox from '../components/LoadingBox';
-import MessageBox from '../components/MessageBox';
-import { USER_UPDATE_RESET } from '../constants/userConstants';
-
-export default function UserEditScreen(props) {
-  const userId = props.match.params.id;
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [isSeller, setIsSeller] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
-
-  const userDetails = useSelector((state) => state.userDetails);
-  const { loading, error, user } = userDetails;
-
-  const userUpdate = useSelector((state) => state.userUpdate);
-  const {
-    loading: loadingUpdate,
-    error: errorUpdate,
-    success: successUpdate,
-  } = userUpdate;
-
-  const dispatch = useDispatch();
+  import { useEffect } from 'react';
+  import { useState } from 'react';
+  import { useDispatch, useSelector } from 'react-redux';
+  import { detailsUser, updateUser } from '../actions/userActions';
+  import LoadingBox from '../components/LoadingBox';
+  import MessageBox from '../components/MessageBox';
+  import { USER_UPDATE_RESET } from '../constants/userConstants';
+  
+const dispatch = useDispatch();
   useEffect(() => {
     if (successUpdate) {
       dispatch({ type: USER_UPDATE_RESET });
@@ -715,86 +796,8 @@ export default function UserEditScreen(props) {
       setIsSeller(user.isSeller);
       setIsAdmin(user.isAdmin);
     }
+
   }, [dispatch, props.history, successUpdate, user, userId]);
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    // dispatch update user
-    dispatch(updateUser({ _id: userId, name, email, isSeller, isAdmin }));
-  };
-  return (
-    <div>
-      <form className="form" onSubmit={submitHandler}>
-        <div>
-          <h1>Edit User {name}</h1>
-          {loadingUpdate && <LoadingBox></LoadingBox>}
-          {errorUpdate && (
-            <MessageBox variant="danger">{errorUpdate}</MessageBox>
-          )}
-        </div>
-        {loading ? (
-          <LoadingBox />
-        ) : error ? (
-          <MessageBox variant="danger">{error}</MessageBox>
-        ) : (
-          <>
-            <div>
-              <label htmlFor="name">Name</label>
-              <input
-                id="name"
-                type="text"
-                placeholder="Enter name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="email">Email</label>
-              <input
-                id="email"
-                type="email"
-                placeholder="Enter email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="isSeller">Is Seller</label>
-              <input
-                id="isSeller"
-                type="checkbox"
-                checked={isSeller}
-                onChange={(e) => setIsSeller(e.target.checked)}
-              ></input>
-            </div>
-            <div>
-              <label htmlFor="isAdmin">Is Admin</label>
-              <input
-                id="isAdmin"
-                type="checkbox"
-                checked={isAdmin}
-                onChange={(e) => setIsAdmin(e.target.checked)}
-              ></input>
-            </div>
-            <div>
-              <button type="submit" className="primary">
-                Update
-              </button>
-            </div>
-          </>
-        )}
-      </form>
-    </div>
-  );
-}
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteUser, listUsers } from '../actions/userActions';
-import LoadingBox from '../components/LoadingBox';
-import MessageBox from '../components/MessageBox';
-import { USER_DETAILS_RESET } from '../constants/userConstants';
-
-export default function UserListScreen(props) {
-  const userList = useSelector((state) => state.userList);
-  const { loading, error, users } = userList;
+  
 
