@@ -800,5 +800,12 @@ export default function SellerScreen(props) {
             <div className="row center">
               {products.map((product) => (
                 <Product key={product._id} product={product}></Product>
- 
+      </div>
+    </div>
+  );
+}
+           ))}
+            </div>
+          </>
+        )}
    
