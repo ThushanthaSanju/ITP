@@ -1,144 +1,94 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { saveShippingAddress } from "../actions/cartActions";
-import CheckoutSteps from "../components/CheckoutSteps";
+import { deleteOrder, listOrders } from "../actions/orderActions";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
+import { ORDER_DELETE_RESET } from "../constants/orderConstants";
 
-export default function ShippingAddressScreen(props) {
+export default function OrderListScreen(props) {
+  const sellerMode = props.match.path.indexOf("/seller") >= 0;
+  const orderList = useSelector((state) => state.orderList);
+  const { loading, error, orders } = orderList;
+  const orderDelete = useSelector((state) => state.orderDelete);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = orderDelete;
+
   const userSignin = useSelector((state) => state.userSignin);
   const { userInfo } = userSignin;
-  const cart = useSelector((state) => state.cart);
-  const { shippingAddress } = cart;
-  const [lat, setLat] = useState(shippingAddress.lat);
-  const [lng, setLng] = useState(shippingAddress.lng);
-  const userAddressMap = useSelector((state) => state.userAddressMap);
-  const { address: addressMap } = userAddressMap;
-  if (!userInfo) {
-    props.history.push("/signin");
-  }
-  const [fullName, setFullName] = useState(shippingAddress.fullName);
-  const [address, setAddress] = useState(shippingAddress.address);
-  const [city, setCity] = useState(shippingAddress.city);
-  const [postalCode, setPostalCode] = useState(shippingAddress.postalCode);
-  const [country, setCountry] = useState(shippingAddress.country);
+
   const dispatch = useDispatch();
-  const submitHandler = (e) => {
-    e.preventDefault();
-    const newLat = addressMap ? addressMap.lat : lat;
-    const newLng = addressMap ? addressMap.lng : lng;
-    if (addressMap) {
-      setLat(addressMap.lat);
-      setLng(addressMap.lng);
+  useEffect(() => {
+    dispatch({ type: ORDER_DELETE_RESET });
+    dispatch(listOrders({ seller: sellerMode ? userInfo._id : "" }));
+  }, [dispatch, sellerMode, successDelete, userInfo._id]);
+  const deleteHandler = (order) => {
+    // TODO: delete handler
+    if (window.confirm("Are you sure to delete?")) {
+      dispatch(deleteOrder(order._id));
     }
-    let moveOn = true;
-    if (!newLat || !newLng) {
-      moveOn = window.confirm(
-        'You did not set your location on map. Continue?'
-      );
-    }
-    if (moveOn) {
-      dispatch(
-        saveShippingAddress({
-          fullName,
-          address,
-          city,
-          postalCode,
-          country,
-          lat: newLat,
-          lng: newLng,
-        })
-      );
-      props.history.push('/payment');
-    }
-  };
-  const chooseOnMap = () => {
-    dispatch(
-      saveShippingAddress({
-        fullName,
-        address,
-        city,
-        postalCode,
-        country,
-        lat,
-        lng,
-      })
-    );
-    props.history.push('/map');
   };
   return (
     <div>
-      <CheckoutSteps step1 step2></CheckoutSteps>
-      <form className="form" onSubmit={submitHandler}>
-        <div>
-          <h1>Delivery Address</h1>
-        </div>
-        <div>
-          <label htmlFor="fullName">Full Name</label>
-          <input
-            type="text"
-            id="fullName"
-            placeholder="Enter full name"
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-            required
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="address">Address</label>
-          <input
-            type="text"
-            id="address"
-            placeholder="Enter address"
-            value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            required
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="city">City</label>
-          <input
-            type="text"
-            id="city"
-            placeholder="Enter city"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
-            required
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="postalCode">Postal Code</label>
-          <input
-            type="text"
-            id="postalCode"
-            placeholder="Enter postal code"
-            value={postalCode}
-            onChange={(e) => setPostalCode(e.target.value)}
-            required
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="country">District</label>
-          <input
-            type="text"
-            id="country"
-            placeholder="Enter District"
-            value={country}
-            onChange={(e) => setCountry(e.target.value)}
-            required
-          ></input>
-        </div>
-        <div>
-          <label htmlFor="chooseOnMap">Location</label>
-          <button type="button" onClick={chooseOnMap}>
-            Choose On Map
-          </button>
-        </div>
-        <div>
-          <label />
-          <button className="primary" type="submit">
-            Continue
-          </button>
-        </div>
-      </form>
+      <h1>Orders</h1>
+      {loadingDelete && <LoadingBox></LoadingBox>}
+      {errorDelete && <MessageBox variant="danger">{errorDelete}</MessageBox>}
+      {loading ? (
+        <LoadingBox></LoadingBox>
+      ) : error ? (
+        <MessageBox variant="danger">{error}</MessageBox>
+      ) : (
+        <table className="table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>USER</th>
+              <th>DATE</th>
+              <th>TOTAL</th>
+              <th>PAID</th>
+              <th>DELIVERED</th>
+              <th>ACTIONS</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order) => (
+              <tr key={order._id}>
+                <td>{order._id}</td>
+                <td>{order.user.name}</td>
+
+                <td>{order.createdAt.substring(0, 10)}</td>
+                <td>{order.totalPrice.toFixed(2)}</td>
+                <td>{order.isPaid ? order.paidAt.substring(0, 10) : "No"}</td>
+                <td>
+                  {order.isDelivered
+                    ? order.deliveredAt.substring(0, 10)
+                    : "No"}
+                </td>
+                <td>
+                  <button
+                    type="button"
+                    className="small"
+                    onClick={() => {
+                      props.history.push(`/order/${order._id}`);
+                    }}
+                  >
+                    Details
+                  </button>
+                  <button
+                    type="button"
+                    className="small"
+                    onClick={() => deleteHandler(order)}
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }
@@ -798,4 +748,55 @@ export default function OrderScreen(props) {
                         onSuccess={successPaymentHandler}
                       ></PayPalButton>
                     </>
- 
+                  )}
+                </li>
+              )}
+              {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                <li>
+                  {loadingDeliver && <LoadingBox></LoadingBox>}
+                  {errorDeliver && (
+                    <MessageBox variant="danger">{errorDeliver}</MessageBox>
+                  )}
+                  <button
+                    type="button"
+                    className="primary block"
+                    onClick={deliverHandler}
+                  >
+                    Deliver Order
+                  </button>
+                </li>
+              )}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+import Axios from "axios";
+import { PayPalButton } from "react-paypal-button-v2";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { deliverOrder, detailsOrder, payOrder } from "../actions/orderActions";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
+
+import {
+  ORDER_DELIVER_RESET,
+  ORDER_PAY_RESET,
+} from "../constants/orderConstants";
+
+export default function OrderScreen(props) {
+  const orderId = props.match.params.id;
+  const [sdkReady, setSdkReady] = useState(false);
+
+  const orderDetails = useSelector((state) => state.orderDetails);
+  const { order, loading, error } = orderDetails;
+  const userSignin = useSelector((state) => state.userSignin);
+  const { userInfo } = userSignin;
+
+  const orderPay = useSelector((state) => state.orderPay);
+  const {
+    loading: loadingPay,}
+  
