@@ -4,9 +4,8 @@
 ## ALL PRs WILL BE REJECTED UNTIL DECEMBER 2020
 # React & Node Tutorial - Full ECommerce in 9 Hours [2021]
 Welcome to my React and Node tutorial to build a fully-functional e-commerce website exactly like amazon. Open your code editor and follow me for the next hours to build an e-commerce website using MERN stack (MongoDB, ExpressJS, React and Node.JS).
-## Demo Website
-- 👉 Heroku : [https://newamazona-final.herokuapp.com](https://newamazona-final.herokuapp.com)
-- 👉 AWS : [https://amazona.webacademy.pro](https://amazona.webacademy.pro)
+
+
 ## You Will Learn
 - HTML5 and CSS3: Semantic Elements, CSS Grid, Flexbox
 - React: Components, Props, Events, Hooks, Router, Axios
@@ -19,14 +18,11 @@ Welcome to my React and Node tutorial to build a fully-functional e-commerce web
 ## Run Locally
 ### 1. Clone repo
 
-$ git clone git@github.com:basir/amazona.git
-$ cd amazona
+
 
 ### 2. Setup MongoDB
 - Local MongoDB
-  - Install it from [here](https://www.mongodb.com/try/download/community)
   - Create .env file in root folder
-  - Set MONGODB_URL=mongodb://localhost/amazona  
 - Atlas Cloud MongoDB
   - Create database at [https://cloud.mongodb.com](https://cloud.mongodb.com)
   - Create .env file in root folder
@@ -51,9 +47,6 @@ $ npm start
 ### 6. Admin Login
 - Run http://localhost:3000/signin
 - Enter admin email and password and click signin
-## Support
-- Q/A: https://webacademy.pro/amazona
-- Contact Instructor: [Basir](mailto:basir.jafarzadeh@gmail.com)
 ## Lessons
 1. Introduction to this course
    1. what you will build
