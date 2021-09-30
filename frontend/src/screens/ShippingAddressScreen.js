@@ -32,7 +32,7 @@ export default function ShippingAddressScreen(props) {
     let moveOn = true;
     if (!newLat || !newLng) {
       moveOn = window.confirm(
-        'You did not set your location on map. Continue?'
+        "You did not set your location on map. Continue?"
       );
     }
     if (moveOn) {
@@ -47,7 +47,7 @@ export default function ShippingAddressScreen(props) {
           lng: newLng,
         })
       );
-      props.history.push('/payment');
+      props.history.push("/payment");
     }
   };
   const chooseOnMap = () => {
@@ -62,14 +62,14 @@ export default function ShippingAddressScreen(props) {
         lng,
       })
     );
-    props.history.push('/map');
+    props.history.push("/map");
   };
   return (
     <div>
       <CheckoutSteps step1 step2></CheckoutSteps>
       <form className="form" onSubmit={submitHandler}>
         <div>
-          <h1>Delivery Address</h1>
+          <h1>Delivery Details</h1>
         </div>
         <div>
           <label htmlFor="fullName">Full Name</label>

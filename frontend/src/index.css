@@ -149,7 +149,7 @@ button:hover {
 }
 
 button.primary {
-  background-color: red;
+  background-color: rgb(26, 243, 243);
 }
 
 button.block {
