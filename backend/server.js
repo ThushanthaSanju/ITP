@@ -6,6 +6,9 @@ import productRouter from "./routers/productRouter.js";
 import userRouter from "./routers/userRouter.js";
 import orderRouter from "./routers/orderRouter.js";
 import uploadRouter from "./routers/uploadRouter.js";
+import cashOnDelivery from "./routers/cashOnRouter.js";
+import cardRouter from "./routers/cardRouter.js";//import card router
+
 
 dotenv.config();
 
@@ -27,6 +30,18 @@ app.use("/api/uploads", uploadRouter);
 app.use("/api/users", userRouter);
 app.use("/api/products", productRouter);
 app.use("/api/orders", orderRouter);
+
+app.use(function(req, res, next){
+  res.header('Access-Control-Allow-Origin', "*");
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  res.header('Access-Control-Allow-Headers', "Content-Type");
+  next();
+})
+
+//Card Router
+app.use("/api/card", cardRouter);
+app.use("/api/cash", cashOnDelivery);
+
 app.get("/api/config/paypal", (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID || "sb");
 });
