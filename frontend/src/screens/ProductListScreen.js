@@ -1,6 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
+import { useReactToPrint } from "react-to-print";
+import { ComponentToPrint } from "../components/ComponentToPrint";
+
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from 'react-router-dom';
+import { Link, useParams } from "react-router-dom";
 import {
   createProduct,
   deleteProduct,
@@ -15,6 +18,12 @@ import {
 } from "../constants/productConstants";
 
 export default function ProductListScreen(props) {
+  //report
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
   const { pageNumber = 1 } = useParams();
 
   const sellerMode = props.match.path.indexOf("/seller") >= 0;
@@ -47,7 +56,7 @@ export default function ProductListScreen(props) {
       dispatch({ type: PRODUCT_DELETE_RESET });
     }
     dispatch(
-      listProducts({ seller: sellerMode ? userInfo._id : '', pageNumber })
+      listProducts({ seller: sellerMode ? userInfo._id : "", pageNumber })
     );
   }, [
     createdProduct,
@@ -88,17 +97,17 @@ export default function ProductListScreen(props) {
         <MessageBox variant="danger">{error}</MessageBox>
       ) : (
         <>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>NAME</th>
-              <th>PRICE</th>
-              <th>CATEGORY</th>
-              <th>BRAND</th>
-              <th>ACTIONS</th>
+          <table className="table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>NAME</th>
+                <th>PRICE</th>
+                <th>CATEGORY</th>
+                <th>BRAND</th>
+                <th>ACTIONS</th>
               </tr>
-              </thead>
+            </thead>
             <tbody>
               {products.map((product) => (
                 <tr key={product._id}>
@@ -132,14 +141,30 @@ export default function ProductListScreen(props) {
           <div className="row center pagination">
             {[...Array(pages).keys()].map((x) => (
               <Link
-                className={x + 1 === page ? 'active' : ''}
+                className={x + 1 === page ? "active" : ""}
                 key={x + 1}
                 to={`/productlist/pageNumber/${x + 1}`}
               >
                 {x + 1}
               </Link>
             ))}
-           </div>
+          </div>
+
+          <div>
+            <ComponentToPrint ref={componentRef} />
+            <br />
+            <button
+              style={{
+                background: "green",
+                float: "right",
+                padding: "20px 20px",
+              }}
+              onClick={handlePrint}
+            >
+              Generate Report Product List
+            </button>
+            <br />
+          </div>
         </>
       )}
     </div>

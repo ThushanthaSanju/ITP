@@ -1,4 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
+import { useReactToPrint } from "react-to-print";
+import { ComponentToPrint } from "../components/ComponentToPrint";
+
 import { useDispatch, useSelector } from "react-redux";
 import { deleteOrder, listOrders } from "../actions/orderActions";
 import LoadingBox from "../components/LoadingBox";
@@ -6,6 +9,12 @@ import MessageBox from "../components/MessageBox";
 import { ORDER_DELETE_RESET } from "../constants/orderConstants";
 
 export default function OrderListScreen(props) {
+  //report
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
   const sellerMode = props.match.path.indexOf("/seller") >= 0;
   const orderList = useSelector((state) => state.orderList);
   const { loading, error, orders } = orderList;
@@ -89,6 +98,22 @@ export default function OrderListScreen(props) {
           </tbody>
         </table>
       )}
+
+      <div>
+        <ComponentToPrint ref={componentRef} />
+        <br />
+        <button
+          style={{
+            background: "green",
+            float: "right",
+            padding: "20px 20px",
+          }}
+          onClick={handlePrint}
+        >
+          Generate Report Orders
+        </button>
+        <br />
+      </div>
     </div>
   );
 }

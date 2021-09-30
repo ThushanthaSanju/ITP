@@ -1,11 +1,19 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import Chart from 'react-google-charts';
-import { summaryOrder } from '../actions/orderActions';
-import LoadingBox from '../components/LoadingBox';
-import MessageBox from '../components/MessageBox';
+import React, { useEffect, useRef } from "react";
+import { useReactToPrint } from "react-to-print";
+import { ComponentToPrint } from "../components/ComponentToPrint";
+
+import { useDispatch, useSelector } from "react-redux";
+import Chart from "react-google-charts";
+import { summaryOrder } from "../actions/orderActions";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
 
 export default function DashboardScreen() {
+  //report
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
   const orderSummary = useSelector((state) => state.orderSummary);
   const { loading, summary, error } = orderSummary;
   const dispatch = useDispatch();
@@ -15,7 +23,7 @@ export default function DashboardScreen() {
   return (
     <div>
       <div className="row">
-        <h1>Dashboard</h1>
+        <h1>Dashboard Summary</h1>
       </div>
       {loading ? (
         <LoadingBox />
@@ -58,6 +66,21 @@ export default function DashboardScreen() {
           </ul>
           <div>
             <div>
+              <ComponentToPrint ref={componentRef} />
+              <br />
+              <button
+                style={{
+                  background: "green",
+                  float: "right",
+                  padding: "20px 20px",
+                }}
+                onClick={handlePrint}
+              >
+                Generate Summary Report of Kingship
+              </button>
+              <br />
+            </div>
+            <div>
               <h2>Sales</h2>
               {summary.dailyOrders.length === 0 ? (
                 <MessageBox>No Sale</MessageBox>
@@ -68,11 +91,26 @@ export default function DashboardScreen() {
                   chartType="AreaChart"
                   loader={<div>Loading Chart</div>}
                   data={[
-                    ['Date', 'Sales'],
+                    ["Date", "Sales"],
                     ...summary.dailyOrders.map((x) => [x._id, x.sales]),
                   ]}
                 ></Chart>
               )}
+            </div>
+            <div>
+              <ComponentToPrint ref={componentRef} />
+              <br />
+              <button
+                style={{
+                  background: "green",
+                  float: "right",
+                  padding: "20px 20px",
+                }}
+                onClick={handlePrint}
+              >
+                Generate Report of Sales
+              </button>
+              <br />
             </div>
           </div>
           <div>
@@ -86,7 +124,7 @@ export default function DashboardScreen() {
                 chartType="PieChart"
                 loader={<div>Loading Chart</div>}
                 data={[
-                  ['Category', 'Products'],
+                  ["Category", "Products"],
                   ...summary.productCategories.map((x) => [x._id, x.count]),
                 ]}
               />
@@ -94,6 +132,22 @@ export default function DashboardScreen() {
           </div>
         </>
       )}
+
+      <div>
+        <ComponentToPrint ref={componentRef} />
+        <br />
+        <button
+          style={{
+            background: "green",
+            float: "right",
+            padding: "20px 20px",
+          }}
+          onClick={handlePrint}
+        >
+          Generate Report of Product Categories
+        </button>
+        <br />
+      </div>
     </div>
   );
 }
