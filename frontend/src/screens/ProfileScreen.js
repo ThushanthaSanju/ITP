@@ -1,4 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
+import { useReactToPrint } from "react-to-print";
+import { ComponentToPrint } from "../components/ComponentToPrint";
+
 import { useDispatch, useSelector } from "react-redux";
 import { detailsUser, updateUserProfile } from "../actions/userActions";
 import LoadingBox from "../components/LoadingBox";
@@ -6,6 +9,12 @@ import MessageBox from "../components/MessageBox";
 import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
 
 export default function ProfileScreen() {
+  //report
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -160,6 +169,21 @@ export default function ProfileScreen() {
               <button className="primary" type="submit">
                 Update
               </button>
+            </div>
+            <div>
+              <ComponentToPrint ref={componentRef} />
+              <br />
+              <button
+                style={{
+                  background: "green",
+                  float: "right",
+                  padding: "20px 20px",
+                }}
+                onClick={handlePrint}
+              >
+                Generate Profile Report
+              </button>
+              <br />
             </div>
           </>
         )}

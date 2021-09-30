@@ -1,10 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
+import { useReactToPrint } from "react-to-print";
+import { ComponentToPrint } from "../components/ComponentToPrint";
+
 import { useDispatch, useSelector } from "react-redux";
 import { listOrderMine } from "../actions/orderActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 
 export default function OrderHistoryScreen(props) {
+  //report
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
   const orderMineList = useSelector((state) => state.orderMineList);
   const { loading, error, orders } = orderMineList;
   const dispatch = useDispatch();
@@ -58,6 +67,22 @@ export default function OrderHistoryScreen(props) {
           </tbody>
         </table>
       )}
+
+      <div>
+        <ComponentToPrint ref={componentRef} />
+        <br />
+        <button
+          style={{
+            background: "green",
+            float: "right",
+            padding: "20px 20px",
+          }}
+          onClick={handlePrint}
+        >
+          Generate Report Order History
+        </button>
+        <br />
+      </div>
     </div>
   );
 }

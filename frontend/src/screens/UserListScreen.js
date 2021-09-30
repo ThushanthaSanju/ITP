@@ -1,11 +1,20 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { deleteUser, listUsers } from '../actions/userActions';
-import LoadingBox from '../components/LoadingBox';
-import MessageBox from '../components/MessageBox';
-import { USER_DETAILS_RESET } from '../constants/userConstants';
+import React, { useEffect, useRef } from "react";
+import { useReactToPrint } from "react-to-print";
+import { ComponentToPrint } from "../components/ComponentToPrint";
+
+import { useDispatch, useSelector } from "react-redux";
+import { deleteUser, listUsers } from "../actions/userActions";
+import LoadingBox from "../components/LoadingBox";
+import MessageBox from "../components/MessageBox";
+import { USER_DETAILS_RESET } from "../constants/userConstants";
 
 export default function UserListScreen(props) {
+  //report
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  });
+
   const userList = useSelector((state) => state.userList);
   const { loading, error, users } = userList;
 
@@ -20,11 +29,11 @@ export default function UserListScreen(props) {
   useEffect(() => {
     dispatch(listUsers());
     dispatch({
-        type: USER_DETAILS_RESET,
-      });
+      type: USER_DETAILS_RESET,
+    });
   }, [dispatch, successDelete]);
   const deleteHandler = (user) => {
-    if (window.confirm('Are you sure?')) {
+    if (window.confirm("Are you sure?")) {
       dispatch(deleteUser(user._id));
     }
   };
@@ -58,10 +67,10 @@ export default function UserListScreen(props) {
                 <td>{user._id}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
-                <td>{user.isSeller ? 'YES' : ' NO'}</td>
-                <td>{user.isAdmin ? 'YES' : 'NO'}</td>
+                <td>{user.isSeller ? "YES" : " NO"}</td>
+                <td>{user.isAdmin ? "YES" : "NO"}</td>
                 <td>
-                <button
+                  <button
                     type="button"
                     className="small"
                     onClick={() => props.history.push(`/user/${user._id}/edit`)}
@@ -81,6 +90,21 @@ export default function UserListScreen(props) {
           </tbody>
         </table>
       )}
+      <div>
+        <ComponentToPrint ref={componentRef} />
+        <br />
+        <button
+          style={{
+            background: "green",
+            float: "right",
+            padding: "20px 20px",
+          }}
+          onClick={handlePrint}
+        >
+          Generate Report User List
+        </button>
+        <br />
+      </div>
     </div>
   );
 }
