@@ -12,12 +12,28 @@ export default function PaymentMethodScreen(props) {
   const [paymentMethod, setPaymentMethod] = useState("PayPal");
   const dispatch = useDispatch();
   const submitHandler = (e) => {
-    e.preventDefault();
+    ///If statement about pages
+    // if (e.target.checked && e.target.value === "Pay"){
+      e.preventDefault();
     dispatch(savePaymentMethod(paymentMethod));
     props.history.push("/placeorder");
+    // }
+    // else if(e.target.checked && e.target.value === "card"){
+    //   e.preventDefault();
+    // dispatch(savePaymentMethod(paymentMethod));
+    // props.history.push("/placeCardorder");
+    // }
+    // else{
+
+    // }
   };
+
+  //Select Payment new
+  // const { selectedOption } = this.state;
+
   return (
     <div>
+      
       <CheckoutSteps step1 step2 step3></CheckoutSteps>
       <form className="form" onSubmit={submitHandler}>
         <div>
@@ -32,6 +48,7 @@ export default function PaymentMethodScreen(props) {
               name="paymentMethod"
               required
               checked
+              // checked={selectedOption === "Pay"}
               onChange={(e) => setPaymentMethod(e.target.value)}
             ></input>
             <label htmlFor="paypal">PayPal</label>
@@ -45,6 +62,7 @@ export default function PaymentMethodScreen(props) {
               value="Card"
               name="paymentMethod"
               required
+              // checked={selectedOption === "card"}
               onChange={(e) => setPaymentMethod(e.target.value)}
             ></input>
             <label htmlFor="stripe">Card</label>

@@ -29,6 +29,14 @@ import LoadingBox from './components/LoadingBox';
 import MessageBox from './components/MessageBox';
 import MapScreen from './screens/MapScreen';
 import DashboardScreen from './screens/DashboardScreen';
+///new
+import OderCashOnScreen from './screens/OrderCashOnScreen';
+import PlaceOrderCardScreen from './screens/PlaceOderCardScreen';
+import PaymentMethod from './screens/PaymentMethod';
+import CardViewScreen from './screens/cardViewScreen';
+import CashViewScreen from './screens/cashViewScreen';
+
+
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -183,8 +191,12 @@ function App() {
           <Route path="/register" component={RegisterScreen}></Route>
           <Route path="/shipping" component={ShippingAddressScreen}></Route>
           <Route path="/orderhistory" component={OrderHistoryScreen}></Route>
-          <Route path="/payment" component={PaymentMethodScreen}></Route>
+          {/* <Route path="/payment" component={PaymentMethodScreen}></Route> */}
+          <Route path="/payment" component={PaymentMethod}></Route>
           <Route path="/placeorder" component={PlaceOrderScreen}></Route>
+          <Route path="/placeCardorder" component={PlaceOrderCardScreen}></Route>
+          <Route path="/ViewCash" component={CashViewScreen}></Route>
+
           <Route
             path="/search/name/:name?"
             component={SearchScreen}
@@ -246,6 +258,7 @@ function App() {
           ></SellerRoute>
 
           <Route path="/order/:id" component={OrderScreen}></Route>
+          <Route path="/orderCash/:id" component={OderCashOnScreen}></Route>
           <Route path="/" component={HomeScreen} exact></Route>
         </main>
         <footer className="row center">All right reserved</footer>
