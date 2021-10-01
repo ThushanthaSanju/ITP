@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { register } from '../actions/userActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import background from '../img/regScreen1.jpg';
 
 export default function RegisterScreen(props) {
   const [name, setName] = useState('');
@@ -34,7 +35,12 @@ export default function RegisterScreen(props) {
     }
   }, [props.history, redirect, userInfo]);
   return (
-    <div>
+    <div style={{backgroundImage:`url(${background})`,
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    width:"100%",
+    height:"100%"}}>
+      
       <form className="form" onSubmit={submitHandler}>
         <div>
           <h1>Register</h1>
@@ -94,6 +100,7 @@ export default function RegisterScreen(props) {
           </div>
         </div>
       </form>
+      
     </div>
   );
 }

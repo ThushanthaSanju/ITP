@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { signin } from '../actions/userActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import background from '../img/login.jpeg';
 
 export default function SigninScreen(props) {
   const [email, setEmail] = useState('');
@@ -27,7 +28,11 @@ export default function SigninScreen(props) {
     }
   }, [props.history, redirect, userInfo]);
   return (
-    <div>
+    <div style={{backgroundImage:`url(${background})`,
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    width:"100%",
+    height:"100%"}}>
       <form className="form" onSubmit={submitHandler}>
         <div>
           <h1>Sign In</h1>
