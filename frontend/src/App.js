@@ -35,6 +35,7 @@ import PlaceOrderCardScreen from './screens/PlaceOderCardScreen';
 import PaymentMethod from './screens/PaymentMethod';
 import CardViewScreen from './screens/cardViewScreen';
 import CashViewScreen from './screens/cashViewScreen';
+import CashOnDelivery from './screens/cashonDelivery';
 
 
 
@@ -141,6 +142,9 @@ function App() {
                     <Link to="/orderlist">Orders</Link>
                   </li>
                   <li>
+                    <Link to="/cashonDelivery">CO Delivery</Link>
+                  </li>
+                  <li>
                     <Link to="/userlist">Users</Link>
                   </li>
                 </ul>
@@ -196,6 +200,8 @@ function App() {
           <Route path="/placeorder" component={PlaceOrderScreen}></Route>
           <Route path="/placeCardorder" component={PlaceOrderCardScreen}></Route>
           <Route path="/ViewCash" component={CashViewScreen}></Route>
+          {/* <Route path="/ViewCashDelivery" component={CashOnDelivery}></Route> */}
+
 
           <Route
             path="/search/name/:name?"
@@ -247,6 +253,12 @@ function App() {
             path="/dashboard"
             component={DashboardScreen}
           ></AdminRoute>
+
+<AdminRoute
+
+path="/cashonDelivery"
+component={CashOnDelivery}
+></AdminRoute>
           
           <SellerRoute
             path="/productlist/seller"
