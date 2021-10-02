@@ -118,7 +118,7 @@ export default function ProductEditScreen(props) {
               </label>
               <input
                 id="price"
-                type="text"
+                type="number"
                 placeholder="Enter price"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
@@ -181,7 +181,7 @@ export default function ProductEditScreen(props) {
               </label>
               <input
                 id="countInStock"
-                type="text"
+                type="number"
                 placeholder="Enter countInStock"
                 value={countInStock}
                 onChange={(e) => setCountInStock(e.target.value)}
