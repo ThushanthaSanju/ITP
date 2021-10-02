@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { signin } from '../actions/userActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
-import background from '../img/login.jpeg';
+import background from '../img/signin.png';
 
 export default function SigninScreen(props) {
   const [email, setEmail] = useState('');
