@@ -7,7 +7,7 @@ import HomeScreen from "./screens/HomeScreen";
 import PrivateRoute from "./components/PrivateRoute";
 import ProductScreen from "./screens/ProductScreen";
 import ProfileScreen from "./screens/ProfileScreen";
-import RegisterScreen from "./screens/RegisterScreen";
+import RegisterScreen from "./screens/RegisterScreen";//register screen is imported from here
 import OrderHistoryScreen from "./screens/OrderHistoryScreen";
 import SigninScreen from "./screens/SigninScreen";
 import ShippingAddressScreen from "./screens/ShippingAddressScreen";

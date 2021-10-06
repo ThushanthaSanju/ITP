@@ -51,7 +51,7 @@ userRouter.post(
       name: req.body.name,
       email: req.body.email,
       password: bcrypt.hashSync(req.body.password, 8),
-    });
+    });//pass these data to user object and send them into db
     const createdUser = await user.save(); //create new user and assign it to createdUser
     res.send({
       _id: createdUser._id,
@@ -62,7 +62,7 @@ userRouter.post(
       token: generateToken(createdUser),
     }); //send back this data to the frontend using generate token
   })
-);
+);// api to register user
 
 userRouter.get(
   "/:id",
