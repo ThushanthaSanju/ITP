@@ -23,6 +23,8 @@ userRouter.get(
     res.send({ createdUsers });
   })
 );
+
+//sign in create
 userRouter.post(
   "/signin",
   expressAsyncHandler(async (req, res) => {
@@ -40,10 +42,11 @@ userRouter.post(
         return;
       }
     }
-    res.status(401).send({ message: "Invalid email or password" });
+    res.status(401).send({ message: "Invalid email or password" });//validation
   })
 );
 
+//register create
 userRouter.post(
   "/register",
   expressAsyncHandler(async (req, res) => {
@@ -107,6 +110,7 @@ userRouter.put(
   })
 );
 
+//user read
 userRouter.get(
   "/",
   isAuth,
@@ -117,6 +121,7 @@ userRouter.get(
   })
 );
 
+//user delete
 userRouter.delete(
   "/:id",
   isAuth,
@@ -129,15 +134,16 @@ userRouter.delete(
         return;
       }
       const deleteUser = await user.remove();
-      res.send({ message: "User Deleted", user: deleteUser });
+      res.send({ message: "User Deleted Successfully", user: deleteUser });
     } else {
       res.status(404).send({ message: "User Not Found" });
     }
   })
 );
 
+//user list update
 userRouter.put(
-  "/:id",
+  "/update/:id",
   isAuth,
   isAdmin,
   expressAsyncHandler(async (req, res) => {
@@ -148,11 +154,27 @@ userRouter.put(
       user.isSeller = req.body.isSeller || user.isSeller;
       user.isAdmin = req.body.isAdmin || user.isAdmin;
       const updatedUser = await user.save();
-      res.send({ message: "User Updated", user: updatedUser });
+      res.send({ message: "User Updated Successfully", user: updatedUser });
     } else {
       res.status(404).send({ message: "User Not Found" });
     }
   })
 );
+
+
+userRouter.route('/getUser/:name').get((req,res) => {
+
+  const name = req.params.name;
+  User.find({ name :  { $regex: ".*" + name + ".*"} })
+  .then( User => res.json( User))
+  .catch(err => res.status(400).json('Error: '+err));
+});
+
+userRouter.route('/getUser').get((req,res) => {
+
+  User.find()
+  .then( User => res.json( User))
+  .catch(err => res.status(400).json('Error: '+err));
+});
 
 export default userRouter;

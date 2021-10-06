@@ -54,6 +54,8 @@ export default function RegisterScreen(props) {
             type="text"
             id="name"
             placeholder="Enter name"
+            pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}"
+            title="Must contain only uppercase and lowercase letters, and at least 8 or more characters"
             required
             onChange={(e) => setName(e.target.value)}
           ></input>

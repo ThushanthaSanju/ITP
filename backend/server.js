@@ -3,12 +3,12 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import path from "path";
 import productRouter from "./routers/productRouter.js";
-import userRouter from "./routers/userRouter.js";
+import userRouter from "./routers/userRouter.js";//import user router
 import orderRouter from "./routers/orderRouter.js";
 import uploadRouter from "./routers/uploadRouter.js";
 import cashOnDelivery from "./routers/cashOnRouter.js";
 import cardRouter from "./routers/cardRouter.js";//import card router
-
+import userModel from "./models/userModel.js";
 
 dotenv.config();
 
@@ -49,15 +49,40 @@ app.get('/api/config/google', (req, res) => {
   res.send(process.env.GOOGLE_API_KEY || '');
 });
 
+
+
+// app.route('/getUser').get((req,res) => {
+//   Users.find()
+//   .then( User => res.json( User))
+//   .catch(err => res.status(400).json('Error: '+err));
+// });
+
 const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 app.get("/", (req, res) => {
   res.send("Server is Ready");
 });
 
+
+app.get("/userModel", (req, res) => {
+  userModel.find()
+    .then( User => res.json( User))
+    .catch(err => res.status(400).json('Error: '+err));
+});
+
+app.get("/userModel/:name", (req, res) => {
+  const name = req.params.name;
+  userModel.find({name : { $regex: ".*" + name + ".*", $options: 'i' } })
+    .then( User => res.json( User))
+    .catch(err => res.status(400).json('Error: '+err));
+});
+
+
+
 app.use((err, req, res, next) => {
   res.status(500).send({ message: err.message });
 });
+
 
 const port = process.env.PORT || 5000;
 
