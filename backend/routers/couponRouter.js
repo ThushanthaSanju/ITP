@@ -10,7 +10,7 @@ couponRouter.post(
   expressAsyncHandler(async (req, res) => {
     console.log("test");
 
-    const coupon = new Coupon({
+    const coupon = new Coupon({ //assign values to coupon model from ui
       name: req.body.name,
       code: req.body.code,
       amount: req.body.amount,
@@ -85,9 +85,9 @@ couponRouter.patch(
       if (req.body.amount) { coupon.amount = req.body.amount }
       if (req.body.expireDate) { coupon.expireDate = req.body.expireDate }
       if (req.body.usageCount) { coupon.usageCount = req.body.usageCount }
-      if (coupon.expireDate < Date.now() || coupon.usageCount >= coupon.count) { coupon.isValid = false }
+      if (coupon.expireDate < Date.now() || coupon.usageCount >= coupon.count) { coupon.isValid = false } //validate coupn with date and count
 
-      const updatedCoupon = await coupon.save((err, updated_object) => {
+      const updatedCoupon = await coupon.save((err, updated_object) => { //save the updated coupn in db
         if (err) { return next(err) }
         res.status(200).json({
           success: true,

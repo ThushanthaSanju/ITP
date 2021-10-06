@@ -5,7 +5,7 @@ import axios from "axios";
 // import config
 const Config = "http://localhost:5000/";
 
-const api = {
+const api = { //api endpoints with crud
     getall: "api/coupons/getall",
     create: "api/coupons/createcoupon",
     update: "api/coupons/update",
@@ -21,14 +21,14 @@ class Coupon {
 
     //Coupons
 
-    async getAllCoupons(params = {}) {
+    async getAllCoupons(params = {}) { //coupn function
 
         const config = {
-            headers: { Authorization: `"token"${token}` },
+            headers: { Authorization: `"token"${token}` }, //passing the token
             params
         };
         return new Promise((resolve, reject) => {
-            return axios.get(`${Config}${api.getall}`, config)
+            return axios.get(`${Config}${api.getall}`, config) //connect to backend using axios
                 .then(result => {
                     if (result.status === 200) {
                         resolve(result.data)
@@ -45,7 +45,7 @@ class Coupon {
     }
 
 
-    async getCouponByID(params) {
+    async getCouponByID(params) { 
         const config = {
             headers: { Authorization: `"token"${token}` }
         };

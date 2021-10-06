@@ -18,9 +18,11 @@ import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { USER_DETAILS_RESET } from "../constants/userConstants";
 import Coupon from "../controllers/couponController";
+import MaterialTable from 'material-table';
 import moment from "moment"
+import { CSVLink } from "react-csv";
 
-export default function UserListScreen(props) {
+export default function CouponScreen(props) {
   //report
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -29,10 +31,10 @@ export default function UserListScreen(props) {
 
   //coupon table data
   const [data, setData] = useState([]);
+
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-
     loadAllCoupons()
   }, []);
 
@@ -44,11 +46,24 @@ export default function UserListScreen(props) {
     count: 0,
     expireDate: "",
   })
+  //table columns
+  const [columns, setColumns] = useState([
+    { title: 'id', field: 'id', hidden: true },
+    { title: 'Name', field: 'name' },
+    { title: 'Code', field: 'code' },
+    { title: 'Amount', field: 'amount' },
+    { title: 'Create Date', field: 'expiredate' },
+    { title: 'Expire Date', field: 'created_at' },
+    { title: 'Coupons Issued', field: 'count' },
+    { title: 'Coupons Used', field: 'usageCount' },
+    { title: 'Validity', field: 'isValid' }
+
+  ]);
+
 
   const handleChange = (e) => {
     let value = e.target.value
-    if (e.target.name == "amount") {
-      console.log(value);
+    if (e.target.name == "amount") { //coupn percentage validation
       value > 100 ? value = 100 : value = value
     }
 
@@ -63,7 +78,7 @@ export default function UserListScreen(props) {
   const loadAllCoupons = (params) => {
     setLoading(true)
     Coupon.getAllCoupons(params)
-      .then((result) => {
+      .then((result) => {  //getting resolved data from controller
         setLoading(false)
         const rdata = result;
         console.log(rdata);
@@ -97,7 +112,7 @@ export default function UserListScreen(props) {
   const createCoupon = () => {
     console.log(couponState);
 
-    Coupon.createCoupons(couponState).then((results) => {
+    Coupon.createCoupons(couponState).then((results) => { //calling coupn controller
       console.log(results);
       loadAllCoupons()
       setCouponState({
@@ -210,69 +225,56 @@ export default function UserListScreen(props) {
 
           <div>
 
-            <h1>Users</h1>
+            <h1>Coupons</h1>
 
-            {loading ? (
-              <LoadingBox></LoadingBox>
-            ) : (
-                <table className="table">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Code</th>
-                      <th>Amount</th>
-                      <th>Create Date</th>
-                      <th>Expire Date</th>
-                      <th>Coupons Issued</th>
-                      <th>Coupons Used</th>
-                      <th>Validity</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {data.map((coupon) => (
-                      <tr key={coupon.id}>
-                        <td>{coupon.name}</td>
-                        <td>{coupon.code}</td>
-                        <td>{coupon.amount}%</td>
-                        <td>{coupon.created_at}</td>
-                        <td>{coupon.expiredate}</td>
-                        <td>{coupon.count}</td>
-                        <td>{coupon.usageCount}</td>
-                        <td>{coupon.isValid ? "YES" : " NO"}</td>
-                        <td>
-                          {/* <button
-                            type="button"
-                            className="small"
-                            onClick={() => props.history.push(`/coupon/${coupon._id}/edit`)}
-                          >
-                            Edit
-                      </button> */}
-                          <button
-                            type="button"
-                            className="small"
-                            onClick={() => { deleteCoupon(coupon.id) }}
-                          >
-                            Delete
-                      </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              )}
+            
+              <div>
+               
+                <MaterialTable
+                    title=''
+                    columns={columns} //variable
+                    data={data}
+                    
+                    options={{
+                      search: true,
+                      showTitle: false,
+                      actionsCellStyle:false,
+                      toolbar: true,
+                      headerStyle: {
+                        backgroundColor: 'rgba(9, 135, 224)',
+                        color: 'rgba(255, 255, 255)',
+                        fontSize: 18,
+                      },
+                      rowStyle: {
+                        fontSize: 12,
+                      },
+                      actionsColumnIndex: -1
+                    }}
+                    actions={[
+                      {
+                        icon: 'delete',
+                        tooltip: 'Delete Coupon',
+                        onClick: (event, rowData) => {deleteCoupon(rowData.id)}
+                      }
+                    ]}
+              
+                  />
+              </div>
+              
             <div>
-              <ComponentToPrint ref={componentRef} />
-              <br />
-              <button
-                style={{
-                  background: "green",
-                  float: "right",
-                  padding: "20px 20px",
-                }}
-                onClick={handlePrint}
-              >
-                Generate Report User List
-            </button>
+              {/* report generation csv */}
+            <Button id="btncsv"> 
+                <CSVLink
+                id="csv"
+                  filename={"couponsDetails.csv"}
+                  data={data}
+                //   className="btn btn-primary m-2"
+                  data-toggle="tooltip"
+                  data-placement="top"
+                >
+                  Generate Report
+                </CSVLink>
+                </Button>
               <br />
             </div>
           </div>

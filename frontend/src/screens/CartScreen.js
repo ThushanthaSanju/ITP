@@ -40,8 +40,8 @@ export default function CartScreen(props) {
     setCouponValue(value);
 
   }
-
-  const applyCoupon = () => {
+  //applying the coupn to the cart
+  const applyCoupon = () => { 
     Coupon.getCouponByID(couponvalue).then((result) => {
       console.log(result);
       //taking coupon value
@@ -50,8 +50,8 @@ export default function CartScreen(props) {
       let useagec = result.usageCount;
 
       if (isvalid) {
-        setValidity(false)
-        Coupon.updateCoupons({ id: result.code, usageCount: useagec + 1 }).then((result) => {
+        setValidity(true)
+        Coupon.updateCoupons({ id: result.code, usageCount: useagec + 1 }).then((result) => { //updating the coupn usage count
           console.log(result);
         })
 
