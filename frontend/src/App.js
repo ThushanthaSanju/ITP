@@ -7,7 +7,7 @@ import HomeScreen from "./screens/HomeScreen";
 import PrivateRoute from "./components/PrivateRoute";
 import ProductScreen from "./screens/ProductScreen";
 import ProfileScreen from "./screens/ProfileScreen";
-import RegisterScreen from "./screens/RegisterScreen";//register screen is imported from here
+import RegisterScreen from "./screens/RegisterScreen";
 import OrderHistoryScreen from "./screens/OrderHistoryScreen";
 import SigninScreen from "./screens/SigninScreen";
 import ShippingAddressScreen from "./screens/ShippingAddressScreen";
@@ -19,6 +19,7 @@ import AdminRoute from "./components/AdminRoute";
 import ProductEditScreen from "./screens/ProductEditScreen";
 import OrderListScreen from "./screens/OrderListScreen";
 import UserListScreen from "./screens/UserListScreen";
+import CouponScreen from "./screens/CouponScreen";
 import UserEditScreen from "./screens/UserEditScreen";
 import SellerRoute from "./components/SellerRoute";
 import SellerScreen from "./screens/SellerScreen";
@@ -37,7 +38,7 @@ import CardViewScreen from './screens/cardViewScreen';
 import CashViewScreen from './screens/cashViewScreen';
 import CashOnDelivery from './screens/cashonDelivery';
 
-
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const cart = useSelector((state) => state.cart);
@@ -63,7 +64,7 @@ function App() {
       <div className="grid-container">
         <header className="row">
           <div>
-          <button
+            <button
               type="button"
               className="open-sidebar"
               onClick={() => setSidebarIsOpen(true)}
@@ -109,8 +110,8 @@ function App() {
                 </ul>
               </div>
             ) : (
-              <Link to="/signin">Sign In</Link>
-            )}
+                <Link to="/signin">Sign In</Link>
+              )}
             {userInfo && userInfo.isSeller && (
               <div className="dropdown">
                 <Link to="#admin">
@@ -147,6 +148,9 @@ function App() {
                   <li>
                     <Link to="/userlist">Users</Link>
                   </li>
+                  <li>
+                    <Link to="/coupons">Coupons</Link>
+                  </li>
                 </ul>
               </div>
             )}
@@ -169,17 +173,17 @@ function App() {
             ) : errorCategories ? (
               <MessageBox variant="danger">{errorCategories}</MessageBox>
             ) : (
-              categories.map((c) => (
-                <li key={c}>
-                  <Link
-                    to={`/search/category/${c}`}
-                    onClick={() => setSidebarIsOpen(false)}
-                  >
-                    {c}
-                  </Link>
-                </li>
-              ))
-            )}
+                  categories.map((c) => (
+                    <li key={c}>
+                      <Link
+                        to={`/search/category/${c}`}
+                        onClick={() => setSidebarIsOpen(false)}
+                      >
+                        {c}
+                      </Link>
+                    </li>
+                  ))
+                )}
           </ul>
         </aside>
         <main>
@@ -208,7 +212,7 @@ function App() {
             component={SearchScreen}
             exact
           ></Route>
-                    <Route
+          <Route
             path="/search/category/:category"
             component={SearchScreen}
             exact
@@ -218,7 +222,7 @@ function App() {
             component={SearchScreen}
             exact
           ></Route>
-            <Route
+          <Route
             path="/search/category/:category/name/:name/min/:min/max/:max/rating/:rating/order/:order/pageNumber/:pageNumber"
             component={SearchScreen}
             exact
@@ -233,7 +237,7 @@ function App() {
             component={ProductListScreen}
             exact
           ></AdminRoute>
-           <AdminRoute
+          <AdminRoute
             path="/productlist/pageNumber/:pageNumber"
             component={ProductListScreen}
             exact
@@ -244,6 +248,7 @@ function App() {
             exact
           ></AdminRoute>
           <AdminRoute path="/userlist" component={UserListScreen}></AdminRoute>
+          <AdminRoute path="/coupons" component={CouponScreen}></AdminRoute>
           <AdminRoute
             path="/user/:id/edit"
             component={UserEditScreen}
@@ -254,12 +259,12 @@ function App() {
             component={DashboardScreen}
           ></AdminRoute>
 
-<AdminRoute
+          <AdminRoute
 
-path="/cashonDelivery"
-component={CashOnDelivery}
-></AdminRoute>
-          
+            path="/cashonDelivery"
+            component={CashOnDelivery}
+          ></AdminRoute>
+
           <SellerRoute
             path="/productlist/seller"
             component={ProductListScreen}

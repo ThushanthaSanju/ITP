@@ -8,7 +8,7 @@ import background from '../img/signin.png';
 
 export default function SigninScreen(props) {
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');//react hooks for set email and pw
+  const [password, setPassword] = useState('');
 
   const redirect = props.location.search
     ? props.location.search.split('=')[1]
@@ -19,7 +19,7 @@ export default function SigninScreen(props) {
 
   const dispatch = useDispatch();
   const submitHandler = (e) => {
-    e.preventDefault();//prevent refreshing the page after clicking submit button
+    e.preventDefault();
     dispatch(signin(email, password));
   };
   useEffect(() => {
@@ -73,7 +73,5 @@ export default function SigninScreen(props) {
         </div>
       </form>
     </div>
-  );//by putting required we are using HTML5 validations
-  //from onchange we create a function and set the relevant value to the object
-  //after clicking on sign in button submit handler will run
+  );
 }
