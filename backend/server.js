@@ -9,8 +9,12 @@ import orderRouter from "./routers/orderRouter.js";
 import uploadRouter from "./routers/uploadRouter.js";
 import cashOnDelivery from "./routers/cashOnRouter.js";
 import userModel from "./models/userModel.js";
+import productModel from "./models/productModel.js";
+import oderModel from "./models/orderModel.js";
 import cardRouter from "./routers/cardRouter.js";//import card router
 import cors from "cors"
+
+
 
 dotenv.config();
 
@@ -63,6 +67,52 @@ const __dirname = path.resolve();
 app.use("/uploads", express.static(path.join(__dirname, "/uploads")));
 app.get("/", (req, res) => {
   res.send("Server is Ready");
+});
+
+app.get("/getAllOrders", (req, res) => {
+  oderModel.find()
+  .then(order => res.json(order))
+  .catch(err => res.status(400).json('Error: '+err));
+});
+
+
+app.delete("/deleteProfile/:email", (req, res) => {
+  const email = req.params.email;
+  userModel.findOneAndDelete({email : email})
+  .then(() => {
+      res.status(200).send({status :"Profile Deleted"});
+  }).catch((err) => {
+      console.log(err);
+      res.status(500).send({status: "Error with Deleting Data",error: err.message});
+  });
+});
+
+app.get("/getAllOrders/:start/:end", (req, res) => {
+  const startPrice = req.params.start;
+  const endPrice = req.params.end;
+  oderModel.find({totalPrice : {$gte:startPrice,$lt:endPrice}})
+  .then(order => res.json(order))
+  .catch(err => res.status(400).json('Error: '+err));
+});
+
+app.get("/getAllProducts", (req, res) => {
+  productModel.find()
+  .then(product => res.json(product))
+  .catch(err => res.status(400).json('Error: '+err));
+});
+
+app.get("/getAllOrders/:name", (req, res) => {
+  const name = req.params.name;
+  oderModel.find({'shippingAddress.fullName' : { $regex: ".*" + name + ".*", $options: 'i' }})
+  .then(order => res.json(order))
+  .catch(err => res.status(400).json('Error: '+err));
+});
+
+app.get("/getAllProducts/:name", (req, res) => {
+  const name = req.params.name;
+  productModel.find({name : { $regex: ".*" + name + ".*", $options: 'i' }})
+  .then(product => res.json(product))
+  .catch(err => res.status(400).json('Error: '+err));
 });
 
 app.get("/userModel", (req, res) => {
