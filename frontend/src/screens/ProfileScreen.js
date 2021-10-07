@@ -7,6 +7,7 @@ import { detailsUser, updateUserProfile } from "../actions/userActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
+import background from '../img/regScreen1.jpg';
 
 export default function ProfileScreen() {
   //report
@@ -71,7 +72,11 @@ export default function ProfileScreen() {
     }
   };
   return (
-    <div>
+    <div style={{backgroundImage:`url(${background})`,
+    backgroundPosition: "center",
+    backgroundSize: "cover",
+    width:"100%",
+    height:"100%"}}>
       <form className="form" onSubmit={submitHandler}>
         <div>
           <h1>User Profile</h1>
