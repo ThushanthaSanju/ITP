@@ -13,8 +13,17 @@ const api = { //api endpoints with crud
     get: "api/coupons/get"
 };
 
+//let userinfo = localStorage.getItem('userInfo')
+//let token = JSON.parse(userinfo).token;
 let userinfo = localStorage.getItem('userInfo')
-let token = JSON.parse(userinfo).token;
+let userJsom = JSON.parse(userinfo)
+let token = ""
+
+if(userJsom ){
+    if(userJsom.token){
+        token = userJsom.token
+    }
+}
 
 class Coupon {
     api;

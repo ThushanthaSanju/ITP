@@ -59,8 +59,6 @@ couponRouter.get(
 
 couponRouter.delete(
   "/delete/:id",
-  isAuth,
-  isAdmin,
   expressAsyncHandler(async (req, res) => {
     const coupon = await Coupon.findById(req.params.id);
     if (coupon) {
@@ -74,7 +72,6 @@ couponRouter.delete(
 
 couponRouter.patch(
   "/update/:id",
-  isAuth,
   expressAsyncHandler(async (req, res) => {
     let query = { code: req.params.id }
     const coupon = await Coupon.findOne(query);
