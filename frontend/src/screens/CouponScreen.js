@@ -175,7 +175,7 @@ export default function CouponScreen(props) {
                 <FormGroup>
                   <Label style={{ display: "block", paddingBottom: "5px" }} for="amount">Discount Percentage</Label>
                   <Input
-                    type="text"
+                    type="number"
                     className="form-control"
                     value={couponState.amount}
                     onChange={handleChange}
@@ -190,7 +190,7 @@ export default function CouponScreen(props) {
                 <FormGroup>
                   <Label style={{ display: "block", paddingBottom: "5px" }} for="count">Number of Coupons</Label>
                   <Input
-                    type="text"
+                    type="number"
                     className="form-control"
                     value={couponState.count}
                     onChange={handleChange}
