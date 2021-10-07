@@ -20,7 +20,6 @@ export default function RegisterScreen(props) {
   const { userInfo, loading, error } = userRegister;
 
   const dispatch = useDispatch();
-  //check form validations
   const submitHandler = (e) => {
     e.preventDefault();
     if(password !== confirmPassword){
@@ -29,7 +28,7 @@ export default function RegisterScreen(props) {
       dispatch(register(name, email, password));
     }
     
-  };//if pw arent matching stop registering
+  };
   useEffect(() => {
     if (userInfo) {
       props.history.push(redirect);
