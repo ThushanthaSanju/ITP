@@ -7,7 +7,7 @@ import { detailsUser, updateUserProfile } from "../actions/userActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
-import background from '../img/regScreen1.jpg';
+import background from "../img/regScreen1.jpg";
 
 export default function ProfileScreen() {
   //report
@@ -72,11 +72,15 @@ export default function ProfileScreen() {
     }
   };
   return (
-    <div style={{backgroundImage:`url(${background})`,
-    backgroundPosition: "center",
-    backgroundSize: "cover",
-    width:"100%",
-    height:"100%"}}>
+    <div
+      style={{
+        backgroundImage: `url(${background})`,
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+        width: "100%",
+        height: "100%",
+      }}
+    >
       <form className="form" onSubmit={submitHandler}>
         <div>
           <h1>User Profile</h1>
@@ -178,16 +182,7 @@ export default function ProfileScreen() {
             <div>
               <ComponentToPrint ref={componentRef} />
               <br />
-              <button
-                style={{
-                  background: "green",
-                  float: "right",
-                  padding: "20px 20px",
-                }}
-                onClick={handlePrint}
-              >
-                Generate Profile Report
-              </button>
+
               <br />
             </div>
           </>

@@ -68,16 +68,7 @@ export default function DashboardScreen() {
             <div>
               <ComponentToPrint ref={componentRef} />
               <br />
-              <button
-                style={{
-                  background: "green",
-                  float: "right",
-                  padding: "20px 20px",
-                }}
-                onClick={handlePrint}
-              >
-                Generate Summary Report of Kingship
-              </button>
+
               <br />
             </div>
             <div>
@@ -100,16 +91,7 @@ export default function DashboardScreen() {
             <div>
               <ComponentToPrint ref={componentRef} />
               <br />
-              <button
-                style={{
-                  background: "green",
-                  float: "right",
-                  padding: "20px 20px",
-                }}
-                onClick={handlePrint}
-              >
-                Generate Report of Sales
-              </button>
+
               <br />
             </div>
           </div>
@@ -144,7 +126,7 @@ export default function DashboardScreen() {
           }}
           onClick={handlePrint}
         >
-          Generate Report of Product Categories
+          Generate Report
         </button>
         <br />
       </div>
