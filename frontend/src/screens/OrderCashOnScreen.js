@@ -226,17 +226,26 @@ function PaperComponent(props) {
     setOpen(false);
   };
 
-  const [errors, setErrors] = useState({email:'', mobileNo:'', nic:''});
+  //Validation
+  const [errors, setErrors] = useState({receiverName: '', email:'', mobileNo:'', nic:''});
   const validate = () =>{
     let errors = {};
     let isValid = true;
+
+    if (typeof receiverName !== "undefined") {
+      var patt = new RegExp(/^[a-z ,.'-]+$/i);
+      if (!patt.test(receiverName)) {
+      isValid = false;
+       errors["receiverName"] = "Please enter valid receiver name";
+      }
+    }
 
     if (mobileNo.length !== 10) {
       isValid = false;
        errors["mobileNo"] = "Please enter valid Mobile Number code";
     }
 
-    if (nic.length !== 12) {
+    if (nic.length !==10 ) {
       isValid = false;
        errors["nic"] = "Please enter valid NIC code";
     }
@@ -259,6 +268,7 @@ function PaperComponent(props) {
   const [email, setEmail] = useState("");
   const [nic, setNic] = useState("");
 
+  //insert
   const OnSubmit = () => {
     if(validate()){
       setOpen(true);
@@ -466,7 +476,7 @@ function PaperComponent(props) {
           </Button>
         </DialogActions>
       </Dialog>
-
+{/* Cash On Insert */}
           </div>
                         <div className="col-50">
                           <div className="frmcash">
@@ -482,6 +492,8 @@ function PaperComponent(props) {
                 value={receiverName}
                 onChange={(e) => handleReceiverName(e)}
                 placeholder="Jhon More"/>
+                 {errors.receiverName ? (
+                <span className='error'>{errors.receiverName}</span>):(<></>)}
             </div>
               <div className="col-50">
                 <label htmlFor="email" id="Nms">Email</label>
@@ -530,6 +542,7 @@ function PaperComponent(props) {
             </div>
             <div className="row1">
             <div className="col-25">
+              {/* View Button */}
             <a href="/ViewCash">
             <button
             id="btns2"
@@ -541,7 +554,7 @@ function PaperComponent(props) {
                   </a>
             </div>
             <div className="col-25">
-            
+            {/* Save Button */}
                   <button
                     id="btns1"
                     type="submit"

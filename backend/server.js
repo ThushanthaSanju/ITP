@@ -46,10 +46,11 @@ app.use(function (req, res, next) {
   next();
 })
 
-//Card Router
-app.use("/api/card", cardRouter);
-app.use("/api/cash", cashOnDelivery);
 
+app.use("/api/card", cardRouter);
+//cash on router
+app.use("/api/cash", cashOnDelivery);
+//paypal
 app.get("/api/config/paypal", (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID || "sb");
 });
