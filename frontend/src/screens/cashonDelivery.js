@@ -76,6 +76,7 @@ const Editable = (props) => {
       baseURL: `http://localhost:5000`
     })
 
+    //report retrive
     const retrieveCashDetails = () => {
         setCashDetails([]);
         axios.get(`${API_URL}/api/cash/getAllCashOn`).then((res) => {
@@ -154,6 +155,8 @@ const Editable = (props) => {
         }}
       />
       {/* <div id="btncsv"> */}
+
+      {/* Report  */}
           <Button id="btncsv">
                 <CSVLink
                 id="csv"

@@ -2,6 +2,7 @@ import express from "express";
 import CashOn from "../models/cashOnModel.js";
 const Router = express.Router();
   
+//insert
 Router.post(  '/addCashOn' , async (req, res) => {
     try { 
       const { receiverName, email, mobileNo, nic} = req.body;
@@ -26,6 +27,7 @@ Router.post(  '/addCashOn' , async (req, res) => {
   }
 );
 
+//get all details
 Router.get('/getAllCashOn', async (req, res) => {
   try {
     const cash = await CashOn.find({});

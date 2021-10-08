@@ -23,6 +23,8 @@ const Editable = (props) => {
     const params = useParams();
     
     const [posts, setPosts] = useState([])
+
+    //get all details
     useEffect(() => {
         const getFileList = async () => {
           try {
@@ -54,7 +56,7 @@ const Editable = (props) => {
             console.log(params.id);
       }, [params.id]);
     
-  
+  //Table fields
     const [columns, setColumns] = useState([
       { title: 'Recevier Name', field: 'receiverName' },
       { title: 'Email', field: 'email' },
@@ -74,15 +76,10 @@ const Editable = (props) => {
     const handleRowUpdate = (newData, oldData, resolve) => {
       //validation
       let errorList = []
-    if(newData.cardNumber === ""){
-      errorList.push("Please enter cardNumber")
-    }
-    if(newData.expDate === ""){
-      errorList.push("Please enter expDate")
-    }
+
 
     if(errorList.length < 1){
-  
+  //update
         api.put("/api/cash/"+newData._id, newData)
         .then(res => {
           const dataUpdate = [...data];
@@ -157,6 +154,7 @@ const Editable = (props) => {
         columns={columns}
         data={data}
         editable={{
+          //update button call
           onRowUpdate: (newData, oldData) =>
             new Promise((resolve, reject) => {
               handleRowUpdate(newData, oldData, resolve);
@@ -168,9 +166,9 @@ const Editable = (props) => {
             }),
         }}
         options={{
-          search: false,
+          search: true,
           showTitle: false,
-          toolbar: false,
+          toolbar: true,
           headerStyle: {
             backgroundColor: 'rgba(9, 135, 224)',
             color: 'rgba(255, 255, 255)',

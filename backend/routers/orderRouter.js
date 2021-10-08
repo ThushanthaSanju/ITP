@@ -112,7 +112,7 @@ orderRouter.get(
     }
   })
 );
-
+//paypal or credit debit paid status
 orderRouter.put(
   "/:id/pay",
   isAuth,
