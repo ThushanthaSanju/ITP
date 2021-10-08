@@ -1,19 +1,39 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef,useCallback } from "react";
 import { useReactToPrint } from "react-to-print";
 import { ComponentToPrint } from "../components/ComponentToPrint";
-
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 import { useDispatch, useSelector } from "react-redux";
 import Chart from "react-google-charts";
 import { summaryOrder } from "../actions/orderActions";
 import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
+import * as htmlToImage from 'html-to-image';
+import { toPng, toJpeg, toBlob, toPixelData, toSvg } from 'html-to-image';
 
 export default function DashboardScreen() {
   //report
   const componentRef = useRef();
-  const handlePrint = useReactToPrint({
-    content: () => componentRef.current,
-  });
+ 
+  const HTMLDivElement = useRef(null);
+  const handlePrint = useCallback(() => {
+    if (HTMLDivElement.current === null) {
+      return
+    }
+
+    toPng(HTMLDivElement.current, { cacheBust: true, })
+      .then((dataUrl) => {
+        const link = document.createElement('a')
+        link.download = 'Chart.jpg'
+        link.href = dataUrl
+        link.click()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [HTMLDivElement])
+
+
   const orderSummary = useSelector((state) => state.orderSummary);
   const { loading, summary, error } = orderSummary;
   const dispatch = useDispatch();
@@ -21,7 +41,7 @@ export default function DashboardScreen() {
     dispatch(summaryOrder());
   }, [dispatch]);
   return (
-    <div>
+    <div id="divToPrint" ref={HTMLDivElement}>
       <div className="row">
         <h1>Dashboard Summary</h1>
       </div>

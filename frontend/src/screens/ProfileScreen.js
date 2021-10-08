@@ -8,8 +8,21 @@ import LoadingBox from "../components/LoadingBox";
 import MessageBox from "../components/MessageBox";
 import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants";
 import background from "../img/regScreen1.jpg";
+import passwordValidator from 'password-validator';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+
+var schema = new passwordValidator();
 
 export default function ProfileScreen() {
+
+  schema
+  .is().min(4)                               
+  .is().max(100)                           
+  .has().lowercase()                         
+  .has().digits(2)       
+  .has().not().spaces()  
+  .is().not().oneOf(['Passw0rd', 'Password123']); 
   //report
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -71,6 +84,47 @@ export default function ProfileScreen() {
       );
     }
   };
+
+  const [isValidCFpassword, setIsValidCfpassword] = useState(false);
+  const [messagepassword, setmessagepassword] = useState('');
+
+  function set_Password(e)
+  {
+    const typedPass =e;
+    if(schema.validate(typedPass) === false) {
+      setIsValidCfpassword(false);
+      setmessagepassword('Password is not strong');
+    }else{
+          setIsValidCfpassword(true);
+          setmessagepassword('Password is strong');
+    }
+    setPassword(typedPass)
+  }
+
+  const emailSeller = localStorage.getItem("email");
+  function profileDelete(){
+    axios.delete("http://localhost:5000/deleteProfile/"+emailSeller).then(() =>{
+
+      Swal.fire({  
+      title: "Success!",
+      text: "Profile Delete Success!",
+      icon: 'success',
+      confirmButtonText: "OK",
+      type: "success"}).then(okay => {
+          if (okay) {
+              window.location.href = "/";
+          }
+      });
+      }).catch((err)=>{
+
+        Swal.fire({  
+        title: "Error!",
+        text: "Profile Delete Not Success",
+        icon: 'error',
+        confirmButtonText: "OK",
+        type: "success"})
+      })
+  }
   return (
     <div
       style={{
@@ -108,12 +162,14 @@ export default function ProfileScreen() {
                 placeholder="Enter name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                required="true"
               ></input>
             </div>
             <div>
               <label htmlFor="email">Email</label>
               <input
                 id="email"
+                required="true"
                 type="email"
                 placeholder="Enter email"
                 value={email}
@@ -125,15 +181,20 @@ export default function ProfileScreen() {
               <input
                 id="password"
                 type="password"
+                required="true"
                 placeholder="Enter password"
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={(e) => set_Password(e.target.value)}
               ></input>
+             <span style={{fontSize:'12px', margin:'0px', padding:'0px'}}  className={`messageCfpassword ${isValidCFpassword ? 'success' : 'error'}`} >
+                            {messagepassword}
+              </span>
             </div>
             <div>
               <label htmlFor="confirmPassword">confirm Password</label>
               <input
                 id="confirmPassword"
                 type="password"
+                required="true"
                 placeholder="Enter confirm password"
                 onChange={(e) => setConfirmPassword(e.target.value)}
               ></input>
@@ -148,6 +209,7 @@ export default function ProfileScreen() {
                     type="text"
                     placeholder="Enter Seller Name"
                     value={sellerName}
+                    required="true"
                     onChange={(e) => setSellerName(e.target.value)}
                   ></input>
                 </div>
@@ -156,6 +218,7 @@ export default function ProfileScreen() {
                   <input
                     id="sellerLogo"
                     type="text"
+                    required="true"
                     placeholder="Enter Seller Logo"
                     value={sellerLogo}
                     onChange={(e) => setSellerLogo(e.target.value)}
@@ -166,6 +229,7 @@ export default function ProfileScreen() {
                   <input
                     id="sellerDescription"
                     type="text"
+                    required="true"
                     placeholder="Enter Seller Description"
                     value={sellerDescription}
                     onChange={(e) => setSellerDescription(e.target.value)}
@@ -173,10 +237,14 @@ export default function ProfileScreen() {
                 </div>
               </>
             )}
-            <div>
+            <div >
               <label />
+
               <button className="primary" type="submit">
                 Update
+              </button>
+              <button className="danger" style={{marginTop:'2%', alignItems:'end'}} onClick={profileDelete} type="submit">
+                Delete
               </button>
             </div>
             <div>

@@ -12,6 +12,9 @@ export default function SellerScreen(props) {
   const userDetails = useSelector((state) => state.userDetails);
   const { loading, error, user } = userDetails;
 
+  
+
+
   const productList = useSelector((state) => state.productList);
   const {
     loading: loadingProducts,

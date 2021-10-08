@@ -20,6 +20,7 @@ export default function SigninScreen(props) {
   const dispatch = useDispatch();
   const submitHandler = (e) => {
     e.preventDefault();
+    localStorage.setItem("email", email);
     dispatch(signin(email, password));
   };
   useEffect(() => {
